@@ -1,3 +1,4 @@
+// TODO: Add colors to the receipts
 public class Receipt {
     private SaleItem[] items; // using composition to create an array of saleitem objectss
     private int itemCount;

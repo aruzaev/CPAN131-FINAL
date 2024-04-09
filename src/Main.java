@@ -30,6 +30,7 @@ public class Main {
 
         receipt.printReceipt();
 
-
+        Menu mainMenu = new MainMenu(); // initialized a new main menu
+        mainMenu.displayMenu();
     }
 }
