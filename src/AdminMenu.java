@@ -37,6 +37,9 @@ public class AdminMenu implements Menu{
                 break;
             case 5:
                 return new MainMenu(stock); // go back to main menu
+            case 0:
+                System.out.println("See you soon!");
+                System.exit(0);
             default:
                 System.out.println("Invalid choice, try again.");
         }

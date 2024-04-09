@@ -23,8 +23,9 @@ public class MainMenu implements Menu{
                 return new AdminMenu(stock);
             case 2:
                 return new CustomerMenu();
-            case 3:
-                return null;
+            case 0:
+                System.out.println("See you soon!");
+                System.exit(0);
             default:
                 System.out.println("Invalid choice. Try again");
                 return this; // stay in the current menu
