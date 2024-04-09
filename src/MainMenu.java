@@ -15,6 +15,7 @@ public class MainMenu implements Menu{
 
     @Override
     public Menu handleUserInput() {
+        System.out.println("Enter choice: ");
         int choice = Utility.getUserChoice();
 
         switch (choice) {

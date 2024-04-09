@@ -5,7 +5,6 @@ public class Utility {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static int getUserChoice() {
-        System.out.println("Enter your choice: ");
         while (!scanner.hasNextInt()) { // loop while the input is not a number
             System.out.println("Invalid choice, must be a number.");
             scanner.next(); // discard input
@@ -17,7 +16,6 @@ public class Utility {
     }
 
     public static String getUserInput() {
-        System.out.println("Enter your input: ");
         // No need to loop here; nextLine() will return the next complete line of input
         String input = scanner.nextLine();
         return input;

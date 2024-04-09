@@ -19,7 +19,7 @@ public class AdminMenu implements Menu{
 
     @Override
     public Menu handleUserInput() {
-
+        System.out.println("Enter the choice: ");
         int choice = Utility.getUserChoice();
 
         switch(choice) {
