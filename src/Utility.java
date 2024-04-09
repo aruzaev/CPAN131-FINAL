@@ -17,15 +17,23 @@ public class Utility {
     }
 
     public static String getUserInput() {
-        while (!scanner.hasNextLine()) { // loop while the input is not a string
-            System.out.println("Invalid input, must be a string: ");
-            scanner.next();
-        }
-
+        System.out.println("Enter your input: ");
+        // No need to loop here; nextLine() will return the next complete line of input
         String input = scanner.nextLine();
-        scanner.nextLine();
         return input;
     }
+
+
+//    public static String getUserInput() {
+//        while (!scanner.hasNextLine()) { // loop while the input is not a string
+//            System.out.println("Invalid input, must be a string: ");
+//            scanner.next();
+//        }
+//
+//        String input = scanner.nextLine();
+//        scanner.nextLine();
+//        return input;
+//    }
 
     public static double getUserDouble() {
         while (!scanner.hasNextDouble()) {
