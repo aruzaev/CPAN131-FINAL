@@ -16,10 +16,20 @@ public class Main {
         System.out.println("Listing products");
         stock.listProducts();
 
-        System.out.println("Removing products");
-        stock.removeProduct(2);
+        //System.out.println("Removing products");
+        //stock.removeProduct(2);
 
         stock.listProducts();
+
+        // buying things
+        Receipt receipt = new Receipt();
+
+        receipt.addItem(product1, 3);
+        receipt.addItem(product2, 5);
+        receipt.addItem(product3, 1);
+
+        receipt.printReceipt();
+
 
     }
 }

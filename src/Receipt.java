@@ -20,7 +20,7 @@ public class Receipt {
             items = newItems; // old array referencing the new and larger array
         }
     }
-
+    // TODO: Add checks to see if the quantity is valid (not too big and not too small)
     public void addItem(Product product, int quantity) {
         checkCapacity(); // check if the array needs to be resized
         SaleItem newItem = new SaleItem(product, quantity);
