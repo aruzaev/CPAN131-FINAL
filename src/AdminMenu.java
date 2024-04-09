@@ -11,7 +11,8 @@ public class AdminMenu implements Menu{
     }
 
     @Override
-    public void handleUserInput() {
+    public Menu handleUserInput() {
 
+        return null;
     }
 }

@@ -1,4 +1,4 @@
 public interface Menu {
     void displayMenu();
-    void handleUserInput();
+    Menu handleUserInput(); // returns next menu or null for exit
 }
