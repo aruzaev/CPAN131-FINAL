@@ -1,5 +1,11 @@
 public class MainMenu implements Menu{
 
+    private Inventory stock;
+
+    public MainMenu(Inventory stock) {
+        this.stock = stock;
+    }
+
     @Override
     public void displayMenu() {
         System.out.println("1. Admin Login");
@@ -13,7 +19,7 @@ public class MainMenu implements Menu{
 
         switch (choice) {
             case 1:
-                return new AdminMenu();
+                return new AdminMenu(stock);
             case 2:
                 return new CustomerMenu();
             case 3:

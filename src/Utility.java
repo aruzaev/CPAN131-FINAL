@@ -15,4 +15,26 @@ public class Utility {
         scanner.nextLine();
         return choice;
     }
+
+    public static String getUserInput() {
+        while (!scanner.hasNextLine()) { // loop while the input is not a string
+            System.out.println("Invalid input, must be a string: ");
+            scanner.next();
+        }
+
+        String input = scanner.nextLine();
+        scanner.nextLine();
+        return input;
+    }
+
+    public static double getUserDouble() {
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Invalid input, must be a double: ");
+            scanner.next();
+        }
+
+        double input = scanner.nextDouble();
+        scanner.nextLine();
+        return input;
+    }
 }
