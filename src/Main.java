@@ -31,6 +31,11 @@ public class Main {
         receipt.printReceipt();
 
         Menu mainMenu = new MainMenu(); // initialized a new main menu
-        mainMenu.displayMenu();
+        while (mainMenu != null) {
+            mainMenu.displayMenu();
+            mainMenu = mainMenu.handleUserInput();
+        }
+
+        System.out.println("Goodbye!!");
     }
 }
