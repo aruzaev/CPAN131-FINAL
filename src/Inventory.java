@@ -18,7 +18,8 @@ public class Inventory {
         }
     }
 
-    // TODO: Add exceptions for getProduct instead of returning as null
+    // TODO: Add exceptions for getProduct instead of returning as null?
+    // TODO: figure out a use for this
     public Product getProduct(int productID) {
         for (int i = 0; i < count; i++) {
             if (products[i].getId() == productID) {
@@ -42,6 +43,22 @@ public class Inventory {
     public void listProducts() {
         for (int i = 0; i < count; i++) {
             System.out.println(products[i]); // tells JVM that we want to print and looks through the product class until we reach toString
+        }
+    }
+
+    public void updateProduct(int productID, String newName, String newDescription, double newPrice, int newQuantity) {
+        Product productToUpdate = getProduct(productID);
+
+        if (productToUpdate != null) { // if product exists
+            // update only if there are new values
+            if (newName != null && !newName.isEmpty()) productToUpdate.setName(newName);
+            if (newDescription != null) productToUpdate.setDescription(newDescription);
+            if (newPrice >= 0) productToUpdate.setPrice(newPrice);
+            if (newQuantity >= 0) productToUpdate.setQuantity(newQuantity);
+
+            System.out.println("Product updated successfully.");
+        } else {
+            System.out.println("Product not found.");
         }
     }
 
