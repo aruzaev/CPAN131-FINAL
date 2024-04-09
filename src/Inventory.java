@@ -1,5 +1,5 @@
 public class Inventory {
-    private Product[] products;
+    private Product[] products; // reference to product object using compostition instead of inheritance
     private int count; // keeps track of the count of items in the inventory
 
     public Inventory(int size) { // inventory constructor
@@ -41,7 +41,7 @@ public class Inventory {
 
     public void listProducts() {
         for (int i = 0; i < count; i++) {
-            System.out.println(products[i]);
+            System.out.println(products[i]); // tells JVM that we want to print and looks through the product class until we reach toString
         }
     }
 
