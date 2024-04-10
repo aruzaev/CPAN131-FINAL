@@ -17,12 +17,12 @@ public class MainMenu implements Menu{
     public Menu handleUserInput() {
         System.out.println("Enter choice: ");
         int choice = Utility.getUserChoice();
-
+//asdasdasdasd
         switch (choice) {
             case 1:
                 return new AdminMenu(stock);
             case 2:
-                return new CustomerMenu();
+                return new CustomerMenu(stock);
             case 0:
                 System.out.println("See you soon!");
                 System.exit(0);
