@@ -52,19 +52,27 @@ public class AdminMenu implements Menu{
         System.out.println("Enter the product details to add a new product:");
         System.out.println("ID: ");
         int id = Utility.getUserChoice();
+
         System.out.println("Name: ");
         String name = Utility.getUserInput();
+
         System.out.println("Description: ");
         String description = Utility.getUserInput();
+
+        System.out.println("Category (Pharmacy, Grocery, Electronics, Toys): ");
+        String category = Utility.getUserInput();
+
         System.out.println("Price: ");
         double price = Utility.getUserDouble();
+
         System.out.println("Quantity: ");
         int quantity = Utility.getUserChoice();
 
-        Product product = new Product(id, name, description, quantity, price);
+        Product product = new Product(id, name, description,category, quantity, price );
         stock.addProduct(product);
         System.out.println("Product added successfully!");
     }
+
 
     private void removeProduct() {
         listProducts();

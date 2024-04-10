@@ -2,13 +2,15 @@ public class Product {
     private int id;
     private String name;
     private String description;
+    private String category;
     private int quantity;
     private double price;
 
-    public Product(int id, String name, String description, int quantity, double price) {
+    public Product(int id, String name, String description, String category, int quantity, double price ) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.category = category;
         this.quantity = quantity;
         this.price = price;
     }
@@ -52,6 +54,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     // overriding the toString method to print out the product information in a custom way
