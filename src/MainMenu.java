@@ -17,7 +17,6 @@ public class MainMenu implements Menu{
     public Menu handleUserInput() {
         System.out.println("Enter choice: ");
         int choice = Utility.getUserChoice();
-//asdasdasdasd
         switch (choice) {
             case 1:
                 return new AdminMenu(stock);
