@@ -32,8 +32,7 @@ public class Utility {
 
     public static String getUserInput() {
         // No need to loop here; nextLine() will return the next complete line of input
-        String input = scanner.nextLine();
-        return input;
+        return scanner.nextLine();
     }
 
 //    public static String getUserInput() {
