@@ -3,6 +3,21 @@ import java.util.Scanner;
 public class Utility {
     // makes the scanner have global presence and ensures that itt cannot be overwritten by another class (one instance of scanner for the entire app)
     private static final Scanner scanner = new Scanner(System.in);
+    public static String[] validCategories = {"Pharmacy", "Grocery", "Electronics", "Toys"};
+
+    public static boolean tryAgain() {
+        System.out.println("1. Yes");
+        System.out.println("2. No");
+        switch (Utility.getUserChoice()) {
+            case 1:
+                return true;
+            case 2:
+                return false;
+            default:
+                System.out.println("Invalid choice, try again.");
+        }
+        return tryAgain(); //loops the method until proper input given
+    }
 
     public static int getUserChoice() {
         while (!scanner.hasNextInt()) { // loop while the input is not a number
@@ -20,7 +35,6 @@ public class Utility {
         String input = scanner.nextLine();
         return input;
     }
-
 
 //    public static String getUserInput() {
 //        while (!scanner.hasNextLine()) { // loop while the input is not a string
