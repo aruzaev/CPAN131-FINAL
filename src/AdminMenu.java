@@ -47,32 +47,62 @@ public class AdminMenu implements Menu{
     }
 
     // TODO: Figure out a way to not make this so long, (maybe add all of these methods to the utility class?)
-    // TODO: Implement only one output to prompt the user for input (ex. "Enter the item delimited with , (id, name, description, price, quantity)
     private void addProduct() {
-        System.out.println("Enter the product details to add a new product:");
-        System.out.println("ID: ");
-        int id = Utility.getUserChoice();
+        ProductValidation validation = new ProductValidation(stock);
+        String id;
+        String name;
+        String description;
+        String category;
+        String price;
+        String quantity;
+        String[] errors = new String[4]; // Maximum possible number of errors
 
-        System.out.println("Name: ");
-        String name = Utility.getUserInput();
+        System.out.println("Enter product information separated by commas \n(ID,Name,Description,Category,Price,Quantity):");
+        String[] parts = (Utility.getUserInput()).split(",");
 
-        System.out.println("Description: ");
-        String description = Utility.getUserInput();
+        if (parts.length == 6) {
+            //Defines variables by applying the appropriate array part
+            id = parts[0];
+            name = parts[1];
+            description = parts[2];
+            category = parts[3];
+            price = parts[4];
+            quantity = parts[5];
 
-        System.out.println("Category (Pharmacy, Grocery, Electronics, Toys): ");
-        String category = Utility.getUserInput();
+            int errorCount = 0; // Counter for the number of errors
 
-        System.out.println("Price: ");
-        double price = Utility.getUserDouble();
+            if (!validation.isValidId(id)) {
+                errors[errorCount++] = "Invalid ID. ID must be unique and a positive integer.";
+            }
+            if (!validation.isValidCategory(category)) {
+                errors[errorCount++] = "Invalid category. Must be one of: Pharmacy, Grocery, Electronics, Toys, Misc";
+            }
+            if (!validation.isValidPrice(price)) {
+                errors[errorCount++] = "Invalid price. Price must be a positive number.";
+            }
+            if (!validation.isValidQuantity(quantity)) {
+                errors[errorCount++] = "Invalid quantity. Quantity must be a non-negative integer.";
+            }
 
-        System.out.println("Quantity: ");
-        int quantity = Utility.getUserChoice();
-
-        Product product = new Product(id, name, description,category, quantity, price );
-        stock.addProduct(product);
-        System.out.println("Product added successfully!");
+            if (errorCount > 0) {
+                System.out.println("Errors:");
+                for (int i = 0; i < errorCount; i++) {
+                    System.out.println("- " + errors[i]);
+                }
+                addProduct();
+            } else {
+                // All input is valid, add the product
+                stock.addProduct(new Product(Integer.parseInt(id), name, description, category,  Integer.parseInt(quantity), Double.parseDouble(price)));
+                System.out.println("Product added successfully!");
+            }
+        } else {
+            System.out.println("Input format is incorrect. Please provide the information separated by commas.");
+            System.out.println("Try again?");
+            if(Utility.tryAgain()){
+                addProduct();
+            }
+        }
     }
-
 
     private void removeProduct() {
         listProducts();
