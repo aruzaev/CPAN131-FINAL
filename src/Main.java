@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
 
-        Inventory stock = new Inventory(10);
+        Inventory stock = new Inventory();
         // id, name, description, quantity, price
         Product product1 = new Product(1, "Apple", "Green apple","Grocery", 256, 4.99);
         Product product2 = new Product(2, "Orange", "","Grocery", 13, 5.99);
