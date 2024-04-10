@@ -1,65 +1,71 @@
+import java.util.ArrayList;
+
 public class Inventory {
-    private Product[] products; // reference to product object using compostition instead of inheritance
-    private int count; // keeps track of the count of items in the inventory
+    // Using ArrayList instead of a regular array to allow for dynamic resizing
+    private ArrayList<Product> products;
 
-    public Inventory(int size) { // inventory constructor
-        products = new Product[size];
-        count = 0; // resets count to 0
-
+    public Inventory() {
+        // Initialize the ArrayList to store Product objects
+        this.products = new ArrayList<>();
     }
 
     public void addProduct(Product product) {
-        if (count < products.length) { // is the inventory full
-            products[count] = product; // adding the newly created product to the products array
-            count++; // increasing id of inventory
-
-        } else {
-            System.out.println("Inventory is full!");
-        }
+        // Add a new product to the inventory
+        products.add(product);
     }
 
     // TODO: Add exceptions for getProduct instead of returning as null?
     // TODO: figure out a use for this
     public Product getProduct(int productID) {
-        for (int i = 0; i < count; i++) {
-            if (products[i].getId() == productID) {
-                return products[i]; // if id has been found get the element space
+        // Search for a product in the inventory by its ID
+        // If found, return the product, otherwise return null
+        for (Product product : products) {
+            if (product.getId() == productID) {
+                return product;
             }
         }
-        return null; // product has not been found
+        return null;
     }
+
     // TODO: see if can call getProduct here
     public void removeProduct(int productID) {
-        for (int i = 0; i < count; i++) {
-            if (products[i].getId() == productID) {
-                products[i] = products[count - 1]; // move last product to the current position
-                products[count - 1] = null; // deletes the product
-                count--; // decreases the inventory count
+        // Remove a product from the inventory by its ID
+        // If the product is not found, print an error message
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == productID) {
+                products.remove(i);
                 return;
             }
         }
+        System.out.println("Product not found.");
     }
 
     public void listProducts() {
-        for (int i = 0; i < count; i++) {
-            System.out.println(products[i]); // tells JVM that we want to print and looks through the product class until we reach toString
+        // Print out all the products in the inventory
+        for (Product product : products) {
+            System.out.println(product);
         }
+    }
+
+    public ArrayList<Product> getProducts() {
+        // Return the ArrayList of products
+        return products;
     }
 
     public void updateProduct(int productID, String newName, String newDescription, double newPrice, int newQuantity) {
-        Product productToUpdate = getProduct(productID);
+        // Update a product's details in the inventory by its ID
+        // If the product is not found, print an error message
+        for (Product product : products) {
+            if (product.getId() == productID) {
+                if (newName != null && !newName.isEmpty()) product.setName(newName);
+                if (newDescription != null) product.setDescription(newDescription);
+                if (newPrice >= 0) product.setPrice(newPrice);
+                if (newQuantity >= 0) product.setQuantity(newQuantity);
 
-        if (productToUpdate != null) { // if product exists
-            // update only if there are new values
-            if (newName != null && !newName.isEmpty()) productToUpdate.setName(newName);
-            if (newDescription != null) productToUpdate.setDescription(newDescription);
-            if (newPrice >= 0) productToUpdate.setPrice(newPrice);
-            if (newQuantity >= 0) productToUpdate.setQuantity(newQuantity);
-
-            System.out.println("Product updated successfully.");
-        } else {
-            System.out.println("Product not found.");
+                System.out.println("Product updated successfully.");
+                return;
+            }
         }
+        System.out.println("Product not found.");
     }
-
 }
