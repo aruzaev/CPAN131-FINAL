@@ -13,10 +13,9 @@ public class ProductManipulation implements Menu{
         System.out.println("===================");
         System.out.println("1. Add product");
         System.out.println("2. Remove product");
-        System.out.println("3. Update product");
-        System.out.println("4. List all products");
-        System.out.println("5. Back to main menu");
-        System.out.println("6. Back to Admin menu");
+        System.out.println("3. List all products");
+        System.out.println("4. Back to main menu");
+        System.out.println("5. Back to Admin menu");
         System.out.println("0. Exit");
     }
 
@@ -33,15 +32,12 @@ public class ProductManipulation implements Menu{
                 removeProduct();
                 break;
             case 3:
-                updateProduct();
-                break;
-            case 4:
                 listProducts();
                 break;
-            case 5:
+            case 4:
                 return new MainMenu(stock); // go back to main menu
 
-            case 6:
+            case 5:
                 return new AdminMenu(stock); // go back to Admin Menu
             case 0:
                 System.out.println("See you soon!");
@@ -52,7 +48,6 @@ public class ProductManipulation implements Menu{
         return this; // stay in the admin menu
     }
 
-    // TODO: Figure out a way to not make this so long, (maybe add all of these methods to the utility class?)
     private void addProduct() {
         ProductValidation validation = new ProductValidation(stock);
         String id;
@@ -63,6 +58,7 @@ public class ProductManipulation implements Menu{
         String quantity;
         String[] errors = new String[4]; // Maximum possible number of errors
 
+        System.out.println("=====Add Product=====");
         System.out.println("Enter product information separated by commas \n(ID,Name,Description,Category,Price,Quantity):");
         String[] parts = (Utility.getUserInput()).split(",");
 
@@ -112,42 +108,12 @@ public class ProductManipulation implements Menu{
 
     private void removeProduct() {
         listProducts();
-        System.out.println("===========");
+        System.out.println("=====Remove Product=====");
         System.out.println("Enter the product ID to remove");
         int id = Utility.getUserChoice();
         stock.removeProduct(id);
         System.out.println("Product removed successfully!");
     }
-
-    private void updateProduct() {
-        listProducts();
-        System.out.println("==========");
-        System.out.println("Enter the product ID to update: ");
-        int id = Utility.getUserChoice();
-
-        System.out.println("Enter the new name (Press enter to keep current)");
-        String newName = Utility.getUserInput();
-
-        System.out.println("Enter the new description (Press enter to keep current)");
-        String newDescription = Utility.getUserInput();
-
-        System.out.println("Enter the new price (negative to keep current)");
-        double newPrice = Utility.getUserDouble();
-
-        System.out.println("Enter the new quantity (negative to keep current)");
-        int newQuantity = Utility.getUserChoice();
-
-        // if its empty then nullify it else keep it
-        newName = newName.isEmpty() ? null : newName;
-        newDescription = newDescription.isEmpty() ? null : newDescription;
-
-        newPrice = newPrice < 0 ? null : newPrice;
-        newQuantity = newQuantity < 0 ? null : newQuantity;
-
-        stock.updateProduct(id, newName, newDescription, newPrice, newQuantity);
-    }
-
-
 
     private void listProducts() {
         stock.listProducts();
