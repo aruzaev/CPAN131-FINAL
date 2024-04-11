@@ -76,8 +76,8 @@ public class CustomerMenu implements Menu {
             Product product = item.getProduct();
             int quantity = item.getQuantity();
 
-            boolean updateSucess = stock.decreaseQuantity(product.getId(), quantity);
-            if (!updateSucess) {
+            boolean updateSuccess = stock.decreaseQuantity(product.getId(), quantity);
+            if (!updateSuccess) {
                 System.out.println("Could not complete transaction: Insufficient Stock");
                 isStockUpdated = false;
                 break;

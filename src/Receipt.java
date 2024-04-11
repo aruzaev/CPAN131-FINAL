@@ -1,7 +1,8 @@
+// tracks purchase details
+
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Add colors to the receipts
 public class Receipt {
     private List<CartItem> items;
     private double total;
