@@ -5,7 +5,9 @@ public class Utility {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static boolean isLoggedIn = false;
+    public static boolean isAdmin;
     public static String username;
+
     public static String[] validCategories = {"Pharmacy", "Grocery", "Electronics", "Toys"};
 
     public static boolean tryAgain() {
