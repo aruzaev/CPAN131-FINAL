@@ -1,42 +1,35 @@
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO: Add colors to the receipts
 public class Receipt {
-    private SaleItem[] items; // using composition to create an array of saleitem objectss
-    private int itemCount;
+    private List<CartItem> items;
     private double total;
 
     public Receipt() {
-        this.items = new SaleItem[10]; // can start with any size because this is just the initial size
-        this.itemCount = 0;
+        this.items = new ArrayList<>();
         this.total = 0.0;
     }
 
-    private void checkCapacity() {
-        if (itemCount >= items.length) { // if the number of items currently in the receipt is greater than the size of the array
-            SaleItem[] newItems = new SaleItem[items.length * 2]; // create a new array with double the size of the old one
-            // copying items from old array into the new one
-            for (int i = 0; i < items.length; i++) {
-                newItems[i] = items[i];
-            }
-
-            items = newItems; // old array referencing the new and larger array
+    public void addItemsFromCart(List<CartItem> cartItems) {
+        for (CartItem item : cartItems) {
+            this.items.add(item);
+            this.total += item.getProduct().getPrice() * item.getQuantity();
         }
-    }
-    // TODO: Add checks to see if the quantity is valid (not too big and not too small)
-    public void addItem(Product product, int quantity) {
-        checkCapacity(); // check if the array needs to be resized
-        SaleItem newItem = new SaleItem(product, quantity);
-        items[itemCount] = newItem; // put newItem into the next available index
-        itemCount++;
-
-        total += newItem.getTotalPrice(); // updates total price
-
     }
 
     public void printReceipt() {
-        System.out.println("RECEIPT: ");
-        for (int i = 0; i < itemCount; i++) {
-            System.out.println(items[i]);
+        final String ANSI_RESET = "\u001B[0m";
+        final String ANSI_RED = "\u001B[31m";
+        final String ANSI_GREEN = "\u001B[32m";
+        final String ANSI_YELLOW = "\u001B[33m";
+
+        System.out.println(ANSI_GREEN + "RECEIPT:" + ANSI_RESET);
+        for (CartItem item : items) {
+            System.out.println(ANSI_YELLOW + item.getProduct().getName() + ANSI_RESET +
+                    ", Quantity: " + ANSI_RED + item.getQuantity() + ANSI_RESET +
+                    ", Cost: " + ANSI_RED + "$" + (item.getProduct().getPrice() * item.getQuantity()) + ANSI_RESET);
         }
-        System.out.println("Total: $" + total);
+        System.out.println(ANSI_GREEN + "Total: $" + total + ANSI_RESET);
     }
 }

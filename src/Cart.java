@@ -1,3 +1,4 @@
+//this class helps to manage a single item in a transaction, which helps to manage many items that are in any given transactio
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class Cart {
         items.add(new CartItem(product, quantity)); // adds final product and items
     }
 
+    public List<CartItem> getItems() { // purely used for logic
+        return new ArrayList<>(this.items); // returns a copy to prevent modifications
+    }
+
     public void displayCart() {
         if (items.isEmpty()) {
             System.out.println("The cart is empty");
@@ -30,6 +35,17 @@ public class Cart {
             System.out.println(item.getProduct().getName() + ", Quantity: " + item.getQuantity());
         }
 
+    }
+
+    public void checkout() {
+        Receipt receipt = new Receipt();
+        receipt.addItemsFromCart(this.items); // add items from cart
+        receipt.printReceipt();
+        this.items.clear(); // clear cart when checking out
+    }
+
+    public void clearCart() {
+        this.items.clear();
     }
 
 }
