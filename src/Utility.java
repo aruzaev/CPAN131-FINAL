@@ -7,6 +7,13 @@ public class Utility {
     public static boolean isAdmin;
     public static String username;
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\033[0;34m";
+    public static final String ANSI_BOLD_CYAN = "\033[1;36m";
+
     public static String[] validCategories = {"Pharmacy", "Grocery", "Electronics", "Toys"};
 
     public static boolean tryAgain() {

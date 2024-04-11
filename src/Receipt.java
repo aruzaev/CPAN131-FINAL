@@ -26,17 +26,13 @@ public class Receipt {
     }
 
     public void printReceipt() {
-        final String ANSI_RESET = "\u001B[0m";
-        final String ANSI_RED = "\u001B[31m";
-        final String ANSI_GREEN = "\u001B[32m";
-        final String ANSI_YELLOW = "\u001B[33m";
 
-        System.out.println(ANSI_GREEN + "RECEIPT:" + ANSI_RESET);
+        System.out.println(Utility.ANSI_GREEN + "RECEIPT:" + Utility.ANSI_RESET);
         for (CartItem item : items) {
-            System.out.println(ANSI_YELLOW + item.getProduct().getName() + ANSI_RESET +
-                    ", Quantity: " + ANSI_RED + item.getQuantity() + ANSI_RESET +
-                    ", Cost: " + ANSI_RED + "$" + (item.getProduct().getPrice() * item.getQuantity()) + ANSI_RESET);
+            System.out.println(Utility.ANSI_YELLOW + item.getProduct().getName() + Utility.ANSI_RESET +
+                    ", Quantity: " + Utility.ANSI_RED + item.getQuantity() + Utility.ANSI_RESET +
+                    ", Cost: " + Utility.ANSI_RED + "$" + (item.getProduct().getPrice() * item.getQuantity()) + Utility.ANSI_RESET);
         }
-        System.out.println(ANSI_GREEN + "Total: $" + total + ANSI_RESET);
+        System.out.println(Utility.ANSI_GREEN + "Total: $" + total + Utility.ANSI_RESET);
     }
 }
