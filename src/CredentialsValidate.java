@@ -1,47 +1,12 @@
-import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CredentialsValidate {
-    private static final String FILENAME = "src/CSV/UserData.csv";
-
-    public static List<String[]> readUsers() {
-        List<String[]> users = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] userData = line.split(",");
-                users.add(userData);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
-
-    public static void writeUser(String username, String password, boolean isAdmin) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME, true))) {
-            bw.write(username + "," + password + "," + isAdmin);
-            bw.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static boolean isUserExists(String username) {
-        List<String[]> users = readUsers();
-        for (String[] userData : users) {
-            if (userData[0].equals(username)) {
-                return true;
-            }
-        }
-        return false;
-    }
+    private static final UserCSV userCSV = new UserCSV();
 
     public static boolean validateUser(String username, String password) {
-        List<String[]> users = readUsers();
-        for (String[] userData : users) {
-            if (userData[0].equals(username) && userData[1].equals(password)) {
+        ArrayList<User> users = userCSV.loadUsersFromCSV();
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 return true;
             }
         }
@@ -49,12 +14,32 @@ public class CredentialsValidate {
     }
 
     public static boolean adminCheck(String username, String password) {
-        List<String[]> users = readUsers();
-        for (String[] userData : users)
-            if (userData[0].equals(username) && userData[1].equals(password) && Boolean.parseBoolean(userData[2])) { // uses username for the most part to see if admin
-                return true; // User found and is an admin
+        ArrayList<User> users = userCSV.loadUsersFromCSV();
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password) && user.isAdmin()) {
+                return true;
             }
-        return false; // User not admin
+        }
+        return false;
     }
 
+    public static boolean userExists(String username) {
+        ArrayList<User> users = userCSV.loadUsersFromCSV();
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void createUser(String username, String password, boolean isAdmin) {
+        ArrayList<User> users = userCSV.loadUsersFromCSV();
+        if (!userExists(username)) {
+            users.add(new User(username, password, isAdmin));
+            userCSV.saveUsersToCSV(users);
+        } else {
+            System.out.println("User already exists.");
+        }
+    }
 }
