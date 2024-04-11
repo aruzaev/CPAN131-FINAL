@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Utility {
     // makes the scanner have global presence and ensures that itt cannot be overwritten by another class (one instance of scanner for the entire app)
     private static final Scanner scanner = new Scanner(System.in);
-
     public static boolean isLoggedIn = false;
     public static boolean isAdmin;
     public static String username;
