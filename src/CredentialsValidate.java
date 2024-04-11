@@ -55,7 +55,7 @@ public class CredentialsValidate {
                 return true; // User found and is an admin
             }
         }
-        return false; // User not found, incorrect credentials, or not an admin
+        return false; // User not admin
     }
 
 }

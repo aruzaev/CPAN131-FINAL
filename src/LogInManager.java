@@ -4,8 +4,7 @@ public class LogInManager implements Menu {
     private Inventory stock;
     // The user's choice from the menu.
     private int choice;
-    // Indicates whether the user is an admin.
-    private boolean isAdmin;
+
     // A static instance of LoginValidation for validating login credentials.
     private static LoginValidation loginVal = new LoginValidation();
 
@@ -18,8 +17,8 @@ public class LogInManager implements Menu {
     // Displays the login menu.
     @Override
     public void displayMenu() {
-        System.out.println("\nPlease Identify yourself");
-        System.out.println("=============================");
+        System.out.println("\nPlease Identify Yourself First");
+        System.out.println("==================================");
         System.out.println("1. Login");
         System.out.println("2. Register");
         System.out.println("0. Back to main menu");
@@ -57,13 +56,14 @@ public class LogInManager implements Menu {
         } else if (CredentialsValidate.validateUser(username, password)) {
             Utility.isLoggedIn = true;
             Utility.username = username;
+            System.out.println("Logged in as: " + Utility.username); // Add this line to log the username
 
             // Checks if the user is an admin.
             if (choice == 1 && CredentialsValidate.adminCheck(username, password)) {
-                isAdmin = true;
+                Utility.isAdmin = true;
                 return new AdminMenu(stock); // Move to the AdminMenu
             } else if (choice == 1 && !CredentialsValidate.adminCheck(username, password)) {
-                isAdmin = false;
+                Utility.isAdmin = false;
                 System.out.println("You have tried to access the Admin Panel without having proper privileges");
             }
             return new CustomerMenu(stock); // Move to the CustomerMenu
