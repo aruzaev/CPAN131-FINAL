@@ -12,12 +12,12 @@ public class CustomerMenu implements Menu {
 
     @Override
     public void displayMenu() {
-        System.out.println("Welcome, " + Utility.username);
         System.out.println("\nCustomer menu");
-        System.out.println("\n============");
-        System.out.println("1. View products");
-        System.out.println("2. View cart");
-        System.out.println("3. Checkout");
+        System.out.println("================" );
+        System.out.println("1. View all products");
+        System.out.println("2. View products by category");
+        System.out.println("3. View cart");
+        System.out.println("4. Checkout");
         System.out.println("0. Back to main menu");
     }
 
@@ -62,10 +62,10 @@ public class CustomerMenu implements Menu {
         switch (Utility.getUserChoice()) {
             case 1:
                 stock.displayProductsByCategory("Pharmacy");
-                return;
+                break;
             case 2:
                 stock.displayProductsByCategory("Grocery");
-                return;
+                break;
             case 3:
                 stock.displayProductsByCategory("Electronics");
                 break;
@@ -77,6 +77,7 @@ public class CustomerMenu implements Menu {
             default:
                 System.out.println("Invalid choice. Try again.");
         }
+        addToCart();
     }
 
     private void addToCart() {
