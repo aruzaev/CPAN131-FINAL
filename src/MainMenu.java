@@ -19,9 +19,8 @@ public class MainMenu implements Menu{
         int choice = Utility.getUserChoice();
         switch (choice) {
             case 1:
-                return new AdminMenu(stock);
             case 2:
-                return new CustomerMenu(stock);
+                return new LogInManager(stock, choice);
             case 0:
                 System.out.println("See you soon!");
                 System.exit(0);
