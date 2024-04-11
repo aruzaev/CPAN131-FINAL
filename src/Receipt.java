@@ -25,6 +25,11 @@ public class Receipt {
         }
     }
 
+    public void clear() {
+        this.items.clear();
+        this.total = 0.0;
+    }
+
     public void printReceipt() {
 
         System.out.println(Utility.ANSI_GREEN + "RECEIPT:" + Utility.ANSI_RESET);
