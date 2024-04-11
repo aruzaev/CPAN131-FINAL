@@ -7,6 +7,7 @@ public class CustomerMenu implements Menu {
         this.stock = stock;
         this.cart = new Cart();
         this.customer = customer;
+        System.out.println("\nWelcome, "+ Utility.ANSI_GREEN + Utility.username + Utility.ANSI_RESET);
     }
 
     @Override
@@ -26,12 +27,15 @@ public class CustomerMenu implements Menu {
         int choice = Utility.getUserChoice();
         switch (choice) {
             case 1:
-                viewProducts();
+                viewAllProducts();
                 break;
             case 2:
-                viewCart();
+                viewProductsByCategory();
                 break;
             case 3:
+                viewCart();
+                break;
+            case 4:
                 checkout();
                 break;
             case 0:
@@ -42,8 +46,40 @@ public class CustomerMenu implements Menu {
         return this;
     }
 
-    private void viewProducts() {
+    private void viewAllProducts() {
         stock.listProducts();
+        addToCart();
+    }
+
+    private void viewProductsByCategory(){
+        System.out.println("\nSelect Category");
+        System.out.println("==============");
+        System.out.println("1. Pharmacy");
+        System.out.println("2. Grocery");
+        System.out.println("3. Electronics");
+        System.out.println("4. Toys");
+        System.out.println("0. Back");
+        switch (Utility.getUserChoice()) {
+            case 1:
+                stock.displayProductsByCategory("Pharmacy");
+                return;
+            case 2:
+                stock.displayProductsByCategory("Grocery");
+                return;
+            case 3:
+                stock.displayProductsByCategory("Electronics");
+                break;
+            case 4:
+                stock.displayProductsByCategory("Toys");
+                break;
+            case 0:
+                return;
+            default:
+                System.out.println("Invalid choice. Try again.");
+        }
+    }
+
+    private void addToCart() {
         System.out.println("Enter the product ID to add to cart (0 to cancel): ");
         int productId = Utility.getUserChoice();
         if (productId != 0) {

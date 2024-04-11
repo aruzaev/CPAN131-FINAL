@@ -81,4 +81,12 @@ public class Inventory {
             return false;
         }
     }
+
+    public void displayProductsByCategory(String category) {
+        for (Product product : products) {
+            if (product.getCategory().equalsIgnoreCase(category)) {
+                System.out.println(product);
+            }
+        }
+    }
 }
