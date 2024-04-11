@@ -13,9 +13,10 @@ public class ProductManipulation implements Menu{
         System.out.println("===================");
         System.out.println("1. Add product");
         System.out.println("2. Remove product");
-        System.out.println("3. List all products");
-        System.out.println("4. Back to main menu");
-        System.out.println("5. Back to Admin menu");
+        System.out.println("3. Update product");
+        System.out.println("4. List all products");
+        System.out.println("5. Back to main menu");
+        System.out.println("6. Back to Admin menu");
         System.out.println("0. Exit");
     }
 
@@ -32,12 +33,15 @@ public class ProductManipulation implements Menu{
                 removeProduct();
                 break;
             case 3:
-                listProducts();
+                updateProduct();
                 break;
             case 4:
+                listProducts();
+                break;
+            case 5:
                 return new MainMenu(stock); // go back to main menu
 
-            case 5:
+            case 6:
                 return new AdminMenu(stock); // go back to Admin Menu
             case 0:
                 System.out.println("See you soon!");
@@ -114,6 +118,37 @@ public class ProductManipulation implements Menu{
         stock.removeProduct(id);
         System.out.println("Product removed successfully!");
     }
+
+    private void updateProduct() {
+//        listProducts();
+//        System.out.println("=====Update Product=====");
+//        System.out.println("Enter the product ID to update: ");
+//        int id = Utility.getUserChoice();
+//
+//        System.out.println("Enter the new name (Press enter to keep current)");
+//        String newName = Utility.getUserInput();
+//
+//        System.out.println("Enter the new description (Press enter to keep current)");
+//        String newDescription = Utility.getUserInput();
+//
+//        System.out.println("Enter the new price (negative to keep current)");
+//        double newPrice = Utility.getUserDouble();
+//
+//        System.out.println("Enter the new quantity (negative to keep current)");
+//        int newQuantity = Utility.getUserChoice();
+//
+//        // if its empty then nullify it else keep it
+//        newName = newName.isEmpty() ? null : newName;
+//        newDescription = newDescription.isEmpty() ? null : newDescription;
+//
+//        double newPriceValue = newPrice < 0 ? Double.NaN : newPrice;
+//        int newQuantityValue = newQuantity < 0 ? Integer.MIN_VALUE : newQuantity;
+//
+//        stock.updateProduct(id, newName, newDescription, newPriceValue, newQuantityValue);
+    }
+
+
+
 
     private void listProducts() {
         stock.listProducts();
