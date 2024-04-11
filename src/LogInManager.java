@@ -38,23 +38,26 @@ public class LogInManager implements Menu {
         String username = Utility.getUserInput();
         System.out.print("Password - ");
         String password = Utility.getUserInput();
+        if (!LoginValidation.isValidLogin(username,password)) {
+            if (CredentialsValidate.validateUser(username, password)) {
+                Utility.isLoggedIn = true;
+                Utility.username = username;
+                System.out.println("Logged in as: " + Utility.username);
 
-        if (CredentialsValidate.validateUser(username, password)) {
-            Utility.isLoggedIn = true;
-            Utility.username = username;
-            System.out.println("Logged in as: " + Utility.username);
-
-            if (choice == 1 && CredentialsValidate.adminCheck(username, password)) {
-                Utility.isAdmin = true;
-                System.out.println("Accessing Admin Panel...");
-                return new AdminMenu(stock);
+                if (choice == 1 && CredentialsValidate.adminCheck(username, password)) {
+                    Utility.isAdmin = true;
+                    System.out.println("Accessing Admin Panel...");
+                    return new AdminMenu(stock);
+                } else {
+                    Utility.isAdmin = false;
+                    System.out.println("Accessing Customer Menu...");
+                    return new CustomerMenu(stock);
+                }
             } else {
-                Utility.isAdmin = false;
-                System.out.println("Accessing Customer Menu...");
-                return new CustomerMenu(stock);
+                System.out.println("Invalid credentials. No User found.");
+                return this;
             }
-        } else {
-            System.out.println("Invalid credentials. No User found.");
+        }else{
             return this;
         }
     }
@@ -71,6 +74,11 @@ public class LogInManager implements Menu {
 
         System.out.print("Enter Password: ");
         String password = Utility.getUserInput();
+
+        if(LoginValidation.isValidLogin(username, password)){
+            System.out.println("Make sure That there are no spaces in the credentials.");
+            return this;
+        }
 
         CredentialsValidate.createUser(username, password, false);
         System.out.println("User registered successfully!");
