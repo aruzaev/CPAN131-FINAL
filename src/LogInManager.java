@@ -27,8 +27,7 @@ public class LogInManager implements Menu {
             case 1:
                 return login();
             case 2:
-                // register();
-                break;
+                return register();
             case 0:
                 return new MainMenu(stock);
             default:
@@ -46,7 +45,7 @@ public class LogInManager implements Menu {
 
         if (!loginVal.isValidLogin(username, password)) {
             System.out.println("Please check Your Username or Password for any spaces");
-            return this; // Return this menu to allow the user to try again
+            return login(); // Return this menu to allow the user to try again
         } else if (CredentialsValidate.validateUser(username, password)) {
             Utility.isLoggedIn = true;
             Utility.username = username;
@@ -64,4 +63,31 @@ public class LogInManager implements Menu {
             return this; // Return this menu to allow the user to try again
         }
     }
+
+    private Menu register() {
+        System.out.println("\n=======Register=======");
+        System.out.print("Enter UserName: ");
+        String username = Utility.getUserInput();
+
+
+        if (CredentialsValidate.isUserExists(username)) {
+            System.out.println("Username already exists. Please choose another.");
+            return register(); // Return this menu to allow the user to try again
+        }
+
+        System.out.print("Enter Password: ");
+        
+        String password = Utility.getUserInput();
+        if (!loginVal.isValidLogin(username, password)) {
+            System.out.println("Please check Your Username or Password for any spaces");
+            return register();
+        }
+
+        boolean isAdmin = false;
+
+        CredentialsValidate.writeUser(username, password, isAdmin);
+        System.out.println("User registered successfully!");
+        return this; // Return this menu to allow the user to log in
+    }
+
 }
