@@ -143,7 +143,6 @@ public class UserManipulation implements Menu {
 
 
     private void listUsers() {
-        UserInventory userInventory = new UserInventory();
         userInventory.listUsers();
     }
 }

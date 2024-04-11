@@ -48,7 +48,12 @@ public class LogInManager implements Menu {
                     Utility.isAdmin = true;
                     System.out.println("Accessing Admin Panel...");
                     return new AdminMenu(stock);
-                } else {
+                } else if (choice == 2 && CredentialsValidate.adminCheck(username, password)) {
+                    Utility.isAdmin = true;
+                    System.out.println("Accessing Customer Menu...");
+                    return new CustomerMenu(stock);
+                }
+                    else {
                     Utility.isAdmin = false;
                     System.out.println("Accessing Customer Menu...");
                     return new CustomerMenu(stock);
