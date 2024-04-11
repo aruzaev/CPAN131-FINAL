@@ -10,21 +10,22 @@ public class ProductValidation {
         //Checks to see if it is even a number and an integer
         try {
             int value = Integer.parseInt(id);
-            if (value < 0) { //make sure it is positive
+            if (value > 0) { //make sure it is non-negative
                 for (Product product : stock.getProducts()) {
                     if (product.getId() == value) {
                         return false; // ID already exists
                     }
                 }
+                return true; // ID is unique
             }
-            return true; // ID is unique
         }
         //if the quantity is not even a number it will catch error so the program does not crash
         //NumberFormatException is an exception in java that is thrown
         //when a string cannot be converted into a numeric value
         catch (NumberFormatException e) {
-            return false; // Not a valid positive number
+            return false; // Not a valid non-negative number
         }
+        return false; // Not a valid non-negative number
     }
 
     //Validate Category
@@ -42,7 +43,7 @@ public class ProductValidation {
         //Checks to see if it is even a number and an integer
         try {
             double value = Double.parseDouble(price);
-            if (value >= 0) { //checks to see if is positive
+            if (value > 0) { //checks to see if is positive
                 return true;
             }
         }
@@ -60,7 +61,7 @@ public class ProductValidation {
         //Checks to see if it is even a number and an integer
         try {
             int value = Integer.parseInt(quantity);
-            if (value >= 0) { //checks to see if is positive
+            if (value >= 0) { //checks to see if is non-negative
                 return true;
             }
         }
@@ -68,7 +69,7 @@ public class ProductValidation {
         //NumberFormatException is an exception in java that is thrown
         //when a string cannot be converted into a numeric value
         catch (NumberFormatException e) {
-            return false; // Not a valid positive number
+            return false; // Not a valid non-negative number
         }
         return false;
     }

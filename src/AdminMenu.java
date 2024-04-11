@@ -22,8 +22,7 @@ public class AdminMenu implements Menu{
 
         switch(choice) {
             case 1:
-                new ProductManipulation(stock);
-                break;
+               return new ProductManipulation(stock);
             case 2:
 //                new UserManipulation();
                 break;

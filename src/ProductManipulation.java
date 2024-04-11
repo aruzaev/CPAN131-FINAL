@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ProductManipulation implements Menu{
     private Inventory stock;
 
@@ -79,7 +81,7 @@ public class ProductManipulation implements Menu{
                 errors[errorCount++] = "Invalid ID. ID must be unique and a positive integer.";
             }
             if (!validation.isValidCategory(category)) {
-                errors[errorCount++] = "Invalid category. Must be one of: Pharmacy, Grocery, Electronics, Toys, Misc";
+                errors[errorCount++] = "Invalid category. Must be one of: " + Arrays.toString(Utility.validCategories);
             }
             if (!validation.isValidPrice(price)) {
                 errors[errorCount++] = "Invalid price. Price must be a positive number.";

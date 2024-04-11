@@ -8,7 +8,7 @@ public class MainMenu implements Menu{
 
     @Override
     public void displayMenu() {
-        System.out.println("1. Admin Page");
+        System.out.println("\n1. Admin Page");
         System.out.println("2. Customer Page");
         System.out.println("3. Logout");
         System.out.println("0. Exit");
