@@ -11,20 +11,28 @@ public class OrderProcessor {
     }
 
     // TODO: ADD MORE ERROR CASES (if product doesnt exist an for if theres not enough quantity)
-    public boolean addToPurchase(Product product, int quantity) {
-        if (stock.getProduct(product.getId()) != null && // if product exists and there is enough stock
-        stock.decreaseQuantity(product.getId(), quantity)) {
-            receipt.addItem(product, quantity);
-            System.out.println("Added " + quantity + " of " + product.getName());
-            return true;
+    public boolean addToPurchase(int productID, int quantity) {
+        Product product = stock.getProduct(productID);
+
+        if (product != null) {
+            // Check if there's enough of the product in stock
+            if (stock.decreaseQuantity(productID, quantity)) {
+                receipt.addItem(product, quantity);
+                System.out.println("Added " + quantity + " of " + product.getName());
+                return true;
+            } else {
+                System.out.println("Insufficient stock for " + product.getName());
+                return false;
+            }
         } else {
-            System.out.println("Cannot add " + quantity + " of " + product.getName());
+            System.out.println("Product with ID " + productID + " not found.");
             return false;
         }
     }
 
     public void finalizePurchase() {
         receipt.printReceipt();
+        receipt.clear();
     }
 
     // getter for receipt

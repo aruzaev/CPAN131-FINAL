@@ -77,4 +77,7 @@ public class Product {
     }
 
 
+    public String toCSV() {
+        return id + "," + name + "," + description + "," + category + "," + quantity + "," + price;
+    }
 }

@@ -5,15 +5,26 @@ import java.util.ArrayList;
 public class Inventory {
     // Using ArrayList instead of a regular array to allow for dynamic resizing
     private ArrayList<Product> products;
+    private final InventoryCSV inventoryCSV;
 
     public Inventory() {
+        this.inventoryCSV = new InventoryCSV();
         // Initialize the ArrayList to store Product objects
-        this.products = new ArrayList<>();
+        this.products = inventoryCSV.loadInventoryFromCSV();
+        //  validateInventory();
     }
 
+
+
     public void addProduct(Product product) {
-        // Add a new product to the inventory
-        products.add(product);
+        if (!products.contains(product)) {
+            // Add a new product to the inventory if it doesnt exist
+            products.add(product);
+            inventoryCSV.saveInventoryToCSV(products);
+        } else {
+            System.out.println("Product already exists.");
+        }
+
     }
 
     // TODO: Add exceptions for getProduct instead of returning as null?
@@ -36,6 +47,7 @@ public class Inventory {
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getId() == productID) {
                 products.remove(i);
+                inventoryCSV.saveInventoryToCSV(products);
                 return;
             }
         }
@@ -63,6 +75,7 @@ public class Inventory {
                 if (newDescription != null) product.setDescription(newDescription);
                 if (newPrice >= 0) product.setPrice(newPrice);
                 if (newQuantity >= 0) product.setQuantity(newQuantity);
+                inventoryCSV.saveInventoryToCSV(products);
 
                 System.out.println("Product updated successfully.");
                 return;
@@ -75,6 +88,7 @@ public class Inventory {
         Product product = getProduct(productID);
         if (product != null && product.getQuantity() >= quantityBeingSold) {
             product.setQuantity(product.getQuantity() - quantityBeingSold);
+            inventoryCSV.saveInventoryToCSV(products);
             return true;
         } else {
             System.out.println("Not enough stock for product ID " + productID   );

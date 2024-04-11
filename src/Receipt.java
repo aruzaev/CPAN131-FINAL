@@ -25,6 +25,11 @@ public class Receipt {
         }
     }
 
+    public void clear() {
+        this.items.clear();
+        this.total = 0.0;
+    }
+
     public void printReceipt() {
         final String ANSI_RESET = "\u001B[0m";
         final String ANSI_RED = "\u001B[31m";
