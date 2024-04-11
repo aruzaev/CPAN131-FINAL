@@ -61,14 +61,15 @@ public class LogInManager implements Menu {
             // Checks if the user is an admin.
             if (choice == 1 && CredentialsValidate.adminCheck(username, password)) {
                 Utility.isAdmin = true;
+                System.out.println("Accessing Admin Panel...");
                 return new AdminMenu(stock); // Move to the AdminMenu
-            } else if (choice == 1 && !CredentialsValidate.adminCheck(username, password)) {
+            } else {
                 Utility.isAdmin = false;
-                System.out.println("You have tried to access the Admin Panel without having proper privileges");
+                System.out.println("Accessing Customer Menu...");
+                return new CustomerMenu(stock); // move to the customer menu if not admin
             }
-            return new CustomerMenu(stock); // Move to the CustomerMenu
         } else {
-            System.out.println("No User Found");
+            System.out.println("Invalid credentials. No User found.");
             return this; // Return this menu to allow the user to try again
         }
     }
@@ -76,13 +77,13 @@ public class LogInManager implements Menu {
     // Handles the registration process.
     private Menu register() {
         System.out.println("\n=======Register=======");
-        System.out.print("Enter UserName: ");
+        System.out.print("Enter Username: ");
         String username = Utility.getUserInput();
 
         // Checks if the username already exists.
         if (CredentialsValidate.isUserExists(username)) {
             System.out.println("Username already exists. Please choose another.");
-            return register(); // Return this menu to allow the user to try again
+            return this; // Return this menu to allow the user to try again
         }
 
         System.out.print("Enter Password: ");
@@ -91,13 +92,11 @@ public class LogInManager implements Menu {
         // Validates the login credentials.
         if (!loginVal.isValidLogin(username, password)) {
             System.out.println("Please check Your Username or Password for any spaces");
-            return register();
+            return this; // stay at the current menu
         }
 
-        boolean isAdmin = false;
-
-        // Writes the user's credentials to the system.
-        CredentialsValidate.writeUser(username, password, isAdmin);
+        // Writes the user's credentials to the system with the assumption that it is not an admin
+        CredentialsValidate.writeUser(username, password, false);
         System.out.println("User registered successfully!");
         return this; // Return this menu to allow the user to log in
     }

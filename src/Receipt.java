@@ -11,6 +11,12 @@ public class Receipt {
         this.total = 0.0;
     }
 
+    // debugging purposes
+    public void addItem(Product product, int quantity) {
+        this.items.add(new CartItem(product, quantity));
+        this.total += product.getPrice() * quantity;
+    }
+
     public void addItemsFromCart(List<CartItem> cartItems) {
         for (CartItem item : cartItems) {
             this.items.add(item);

@@ -51,7 +51,7 @@ public class CredentialsValidate {
     public static boolean adminCheck(String username, String password) {
         List<String[]> users = readUsers();
         for (String[] userData : users) {
-            if (userData[0].equals(username) && userData[1].equals(password) && Boolean.parseBoolean(userData[2])) {
+            if (userData[0].equals(username) && Boolean.parseBoolean(userData[2])) { // uses username for the most part to see if admin
                 return true; // User found and is an admin
             }
         }
