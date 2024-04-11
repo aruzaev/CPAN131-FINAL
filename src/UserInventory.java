@@ -28,19 +28,28 @@ public class UserInventory {
     }
 
     public void removeUser(String username) {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(username)) {
-                users.remove(i);
-                userCSV.saveUsersToCSV(users);
-                return;
+        if (users.size() > 1) {
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getUsername().equals(username)) {
+                    if (i == 0) {
+                        System.out.println("Cannot delete the first user.");
+                        return;
+                    }
+                    users.remove(i);
+                    userCSV.saveUsersToCSV(users);
+                    return;
+                }
             }
+        } else {
+            System.out.println("Cannot delete the only user.");
         }
         System.out.println("User not found.");
     }
 
+
     public void listUsers() {
-        for (User user : users) {
-            System.out.println(user);
+        for (int i = 1; i < users.size(); i++) {
+            System.out.println(users.get(i));
         }
     }
 

@@ -1,5 +1,6 @@
 public class UserManipulation implements Menu {
     private Inventory stock;
+    UserInventory userInventory = new UserInventory();
 
     public UserManipulation(Inventory stock) {
         this.stock = stock;
@@ -88,17 +89,61 @@ public class UserManipulation implements Menu {
 
 
     private void removeUser() {
-        // Implement removing a user
-        // You can use methods from CredentialsValidate to check and remove users
+        System.out.println("\n=======Remove User=======");
+        listUsers();
+        System.out.print("Enter Username to remove: ");
+        String username = Utility.getUserInput();
+
+        UserInventory userInventory = new UserInventory();
+        userInventory.removeUser(username);
     }
 
     private void updateUser() {
-        // Implement updating a user
-        // You can use methods from CredentialsValidate to check and update users
+        System.out.println("\n=======Update User=======");
+        listUsers();
+        System.out.print("Enter Username to update: ");
+        String username = Utility.getUserInput();
+
+        UserInventory userInventory = new UserInventory();
+        User user = userInventory.getUser(username);
+
+        if (user == null) {
+            System.out.println("User not found.");
+            return;
+        }
+
+        System.out.print("Enter New Password (Press Enter to keep current): ");
+        String newPassword = Utility.getUserInput();
+
+        if (newPassword.isEmpty()) {
+            newPassword = user.getPassword();
+        } else if (!LoginValidation.isValidLogin(username, newPassword)) {
+            System.out.println("Make sure that there are no spaces in the credentials.");
+            return;
+        }
+
+        System.out.print("Is Admin? (t/T - True | f/F - False, Press Enter to keep current): ");
+        String isAdminInput = Utility.getUserInput();
+
+        boolean isAdmin = user.isAdmin();
+        if (!isAdminInput.isEmpty()) {
+            if (!LoginValidation.isAdmin(isAdminInput)){
+                System.out.println("Please make sure that \"Is Admin\" follows the proper input format");
+                return;
+            }
+            isAdmin = Boolean.parseBoolean(isAdminInput);
+        }
+
+        userInventory.removeUser(username);
+        user.setPassword(newPassword);
+        user.setAdmin(isAdmin);
+        userInventory.addUser(user);
+        System.out.println("User updated successfully!");
     }
 
+
     private void listUsers() {
-        // Implement listing all users
-        // You can use methods from CredentialsValidate to get all users
+        UserInventory userInventory = new UserInventory();
+        userInventory.listUsers();
     }
 }
