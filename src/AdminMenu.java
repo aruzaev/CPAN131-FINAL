@@ -8,12 +8,10 @@ public class AdminMenu implements Menu{
     @Override
     public void displayMenu() {
         System.out.println("\nAdmin menu");
-        System.out.println("\n============");
-        System.out.println("1. Add product");
-        System.out.println("2. Remove product");
-        System.out.println("3. Update product");
-        System.out.println("4. List all products");
-        System.out.println("5. Back to main menu");
+        System.out.println("==============");
+        System.out.println("1. Edit Products");
+        System.out.println("2. Edit Users");
+        System.out.println("3. Back to main menu");
         System.out.println("0. Exit");
     }
 
@@ -24,10 +22,10 @@ public class AdminMenu implements Menu{
 
         switch(choice) {
             case 1:
-                addProduct();
+                new ProductManipulation(stock);
                 break;
             case 2:
-                removeProduct();
+//                new UserManipulation();
                 break;
             case 3:
                 updateProduct();
