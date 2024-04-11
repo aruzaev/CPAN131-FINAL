@@ -64,7 +64,36 @@ public class CustomerMenu implements Menu {
     }
 
     private void checkout() {
-        // Implement checkout logic, e.g., generate receipt, update inventory, etc.
-        System.out.println("Checkout not implemented yet.");
+        if (cart.getItems().isEmpty()) {
+            System.out.println("Your cart is empty.");
+            return;
+        }
+
+        System.out.println("Proceeding to checkout...");
+        boolean isStockUpdated = true; // flag to see if the stock has been impacted
+
+        for (CartItem item: cart.getItems()) {
+            Product product = item.getProduct();
+            int quantity = item.getQuantity();
+
+            boolean updateSuccess = stock.decreaseQuantity(product.getId(), quantity);
+            if (!updateSuccess) {
+                System.out.println("Could not complete transaction: Insufficient Stock");
+                isStockUpdated = false;
+                break;
+            }
+        }
+
+        if (isStockUpdated) {
+            Receipt receipt = new Receipt();
+            receipt.addItemsFromCart(cart.getItems());
+            receipt.printReceipt();
+
+            cart.clearCart();
+            System.out.println("Checkout successful. Thank you for your purchase!");
+
+        } else {
+            System.out.println("Checkout failed due to stock issues. Please review your cart.");
+        }
     }
 }

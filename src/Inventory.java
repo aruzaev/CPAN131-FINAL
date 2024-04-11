@@ -1,3 +1,5 @@
+// responsible for managing stock levels
+
 import java.util.ArrayList;
 
 public class Inventory {
@@ -67,5 +69,16 @@ public class Inventory {
             }
         }
         System.out.println("Product not found.");
+    }
+
+    public boolean decreaseQuantity(int productID, int quantityBeingSold) {
+        Product product = getProduct(productID);
+        if (product != null && product.getQuantity() >= quantityBeingSold) {
+            product.setQuantity(product.getQuantity() - quantityBeingSold);
+            return true;
+        } else {
+            System.out.println("Not enough stock for product ID " + productID   );
+            return false;
+        }
     }
 }

@@ -24,9 +24,11 @@ public class Main {
         // buying things
         Receipt receipt = new Receipt();
 
-        receipt.addItem(product1, 3);
-        receipt.addItem(product2, 5);
-        receipt.addItem(product3, 1);
+        OrderProcessor orderProcessor = new OrderProcessor(stock);
+
+
+        orderProcessor.addToPurchase(product1, 3);
+        orderProcessor.addToPurchase(product2, 3);
 
         receipt.printReceipt();
 
