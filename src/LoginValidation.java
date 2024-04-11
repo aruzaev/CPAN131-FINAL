@@ -15,6 +15,19 @@ public class LoginValidation {
 
     }
 
+    public static boolean isAdmin(String isAdmin) {
+        String regex = "^[a-zA-Z]*$";
+
+        // Return true if the string contains only letters and is not empty
+        if(isAdmin != null && isAdmin.matches(regex)){
+            if (isAdmin.equals("t") || isAdmin.equals("T") || isAdmin.equals("f") || isAdmin.equals("F")){
+                return true;
+            }
+        }
+            return false;
+    }
+
+
 
 
 }

@@ -38,7 +38,7 @@ public class LogInManager implements Menu {
         String username = Utility.getUserInput();
         System.out.print("Password - ");
         String password = Utility.getUserInput();
-        if (!LoginValidation.isValidLogin(username,password)) {
+        if (LoginValidation.isValidLogin(username,password)) {
             if (CredentialsValidate.validateUser(username, password)) {
                 Utility.isLoggedIn = true;
                 Utility.username = username;
@@ -57,10 +57,11 @@ public class LogInManager implements Menu {
                 System.out.println("Invalid credentials. No User found.");
                 return this;
             }
-        }else{
+        } else {
             return this;
         }
     }
+
 
     private Menu register() {
         System.out.println("\n=======Register=======");
