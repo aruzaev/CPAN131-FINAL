@@ -14,6 +14,7 @@ public class Utility {
     public static final String ANSI_BLUE = "\033[0;34m";
     public static final String ANSI_BOLD_CYAN = "\033[1;36m";
 
+
     public static String[] validCategories = {"Pharmacy", "Grocery", "Electronics", "Toys"};
 
     public static boolean tryAgain() {
@@ -67,4 +68,10 @@ public class Utility {
         scanner.nextLine();
         return input;
     }
+    public static boolean confirm(String message) {
+        System.out.println(message);
+        String input = getUserInput().trim().toLowerCase();
+        return input.startsWith("y");
+    }
 }
+

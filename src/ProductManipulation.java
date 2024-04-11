@@ -40,7 +40,6 @@ public class ProductManipulation implements Menu{
                 break;
             case 5:
                 return new MainMenu(stock); // go back to main menu
-
             case 6:
                 return new AdminMenu(stock); // go back to Admin Menu
             case 0:
@@ -49,7 +48,7 @@ public class ProductManipulation implements Menu{
             default:
                 System.out.println("Invalid choice, try again.");
         }
-        return this; // stay in the admin menu
+        return this; // stay in the product manipulation menu
     }
 
     private void addProduct() {
@@ -110,6 +109,53 @@ public class ProductManipulation implements Menu{
         }
     }
 
+    private void updateProduct() {
+        listProducts();
+        System.out.println("=====Update Product=====");
+        System.out.println("Enter the product ID to update:");
+        int id = Utility.getUserChoice();
+
+        Product existingProduct = stock.getProduct(id);
+        if (existingProduct == null) {
+            System.out.println("Product with ID " + id + " not found.");
+            return;
+        }
+
+        String newName = existingProduct.getName();
+        String newDescription = existingProduct.getDescription();
+        double newPrice = existingProduct.getPrice();
+        int newQuantity = existingProduct.getQuantity();
+
+        System.out.println("Current name: " + existingProduct.getName());
+        if (Utility.confirm("Do you want to update the name? (yes/no)")) {
+            System.out.println("Enter the new name:");
+            newName = Utility.getUserInput();
+        }
+
+        System.out.println("Current description: " + existingProduct.getDescription());
+        if (Utility.confirm("Do you want to update the description? (yes/no)")) {
+            System.out.println("Enter the new description:");
+            newDescription = Utility.getUserInput();
+        }
+
+        System.out.println("Current price: " + existingProduct.getPrice());
+        if (Utility.confirm("Do you want to update the price? (yes/no)")) {
+            System.out.println("Enter the new price:");
+            newPrice = Utility.getUserDouble();
+        }
+
+        System.out.println("Current quantity: " + existingProduct.getQuantity());
+        if (Utility.confirm("Do you want to update the quantity? (yes/no)")) {
+            System.out.println("Enter the new quantity:");
+            newQuantity = Utility.getUserChoice();
+        }
+
+        // Only after all potential changes have been confirmed do we call the update method.
+        stock.updateProduct(id, newName, newDescription, newPrice, newQuantity);
+        System.out.println("Product updated successfully!");
+    }
+
+
     private void removeProduct() {
         listProducts();
         System.out.println("=====Remove Product=====");
@@ -119,41 +165,9 @@ public class ProductManipulation implements Menu{
         System.out.println("Product removed successfully!");
     }
 
-    private void updateProduct() {
-//        listProducts();
-//        System.out.println("=====Update Product=====");
-//        System.out.println("Enter the product ID to update: ");
-//        int id = Utility.getUserChoice();
-//
-//        System.out.println("Enter the new name (Press enter to keep current)");
-//        String newName = Utility.getUserInput();
-//
-//        System.out.println("Enter the new description (Press enter to keep current)");
-//        String newDescription = Utility.getUserInput();
-//
-//        System.out.println("Enter the new price (negative to keep current)");
-//        double newPrice = Utility.getUserDouble();
-//
-//        System.out.println("Enter the new quantity (negative to keep current)");
-//        int newQuantity = Utility.getUserChoice();
-//
-//        // if its empty then nullify it else keep it
-//        newName = newName.isEmpty() ? null : newName;
-//        newDescription = newDescription.isEmpty() ? null : newDescription;
-//
-//        double newPriceValue = newPrice < 0 ? Double.NaN : newPrice;
-//        int newQuantityValue = newQuantity < 0 ? Integer.MIN_VALUE : newQuantity;
-//
-//        stock.updateProduct(id, newName, newDescription, newPriceValue, newQuantityValue);
-    }
-
-
-
-
     private void listProducts() {
         stock.listProducts();
     }
 
 }
-
 
