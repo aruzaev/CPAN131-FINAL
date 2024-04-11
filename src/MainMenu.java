@@ -8,8 +8,9 @@ public class MainMenu implements Menu{
 
     @Override
     public void displayMenu() {
-        System.out.println("1. Admin Login");
-        System.out.println("2. Customer Login");
+        System.out.println("1. Admin Page");
+        System.out.println("2. Customer Page");
+        System.out.println("3. Logout");
         System.out.println("0. Exit");
     }
 
@@ -20,7 +21,26 @@ public class MainMenu implements Menu{
         switch (choice) {
             case 1:
             case 2:
-                return new LogInManager(stock, choice);
+                if (Utility.isLoggedIn) {
+                    if (choice == 1 && Utility.isAdmin){
+                        System.out.println("Directing to Admin Menu");
+                        return new AdminMenu(stock);
+                    }else if (choice == 1 && !Utility.isAdmin){
+                        System.out.println("You Really thought did ya?");
+                        System.out.print("Redirecting you to the correct page :)\n");
+                        return new CustomerMenu(stock);
+                    }else{
+                        System.out.println("Directing to Customer Menu");
+                        return new CustomerMenu(stock);
+                    }
+                }else{
+                    return new LogInManager(stock, choice);
+                }
+            case 3:
+                Utility.isLoggedIn = false;
+                Utility.isAdmin = false;
+                System.out.print("You Have successfully logged out\n");
+                return this;
             case 0:
                 System.out.println("See you soon!");
                 System.exit(0);
