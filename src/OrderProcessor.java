@@ -1,6 +1,3 @@
-// removes coupling and Receipt's dependancy on Inventory
-// is responsible for processing orders
-
 public class OrderProcessor {
     private Inventory stock;
     private Receipt receipt;
