@@ -24,7 +24,6 @@ public class AdminMenu implements Menu{
             case 1:
                return new ProductManipulation(stock);
             case 2:
-//                new UserManipulation();
                 return new UserManipulation(stock);
             case 3:
                 updateProduct();
@@ -43,7 +42,6 @@ public class AdminMenu implements Menu{
         return this; // stay in the admin menu
     }
 
-    // TODO: Figure out a way to not make this so long, (maybe add all of these methods to the utility class?)
     private void addProduct() {
         ProductValidation validation = new ProductValidation(stock);
         String id;
