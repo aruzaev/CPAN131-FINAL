@@ -10,7 +10,6 @@ public class OrderProcessor {
         this.receipt = new Receipt(); // generates a new receipt
     }
 
-    // TODO: ADD MORE ERROR CASES (if product doesnt exist an for if theres not enough quantity)
     public boolean addToPurchase(int productID, int quantity) {
         Product product = stock.getProduct(productID);
 

@@ -121,11 +121,13 @@ public class ProductManipulation implements Menu{
             return;
         }
 
+        // initializiing variables
         String newName = existingProduct.getName();
         String newDescription = existingProduct.getDescription();
         double newPrice = existingProduct.getPrice();
         int newQuantity = existingProduct.getQuantity();
 
+        // confirming new inputs
         System.out.println("Current name: " + existingProduct.getName());
         if (Utility.confirm("Do you want to update the name? (yes/no)")) {
             System.out.println("Enter the new name:");

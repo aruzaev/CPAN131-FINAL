@@ -17,7 +17,7 @@ public class Receipt {
         this.items.add(new CartItem(product, quantity));
         this.total += product.getPrice() * quantity;
     }
-
+    // add items to the cart and adding the price and quantity
     public void addItemsFromCart(List<CartItem> cartItems) {
         for (CartItem item : cartItems) {
             this.items.add(item);
@@ -25,13 +25,14 @@ public class Receipt {
         }
     }
 
+    // clearing the cart and total
     public void clear() {
         this.items.clear();
         this.total = 0.0;
     }
 
     public void printReceipt() {
-
+        // printing with color
         System.out.println(Utility.ANSI_GREEN + "RECEIPT:" + Utility.ANSI_RESET);
         for (CartItem item : items) {
             System.out.println(Utility.ANSI_YELLOW + item.getProduct().getName() + Utility.ANSI_RESET +

@@ -27,8 +27,6 @@ public class Inventory {
 
     }
 
-    // TODO: Add exceptions for getProduct instead of returning as null?
-    // TODO: figure out a use for this
     public Product getProduct(int productID) {
         // Search for a product in the inventory by its ID
         // If found, return the product, otherwise return null
@@ -40,7 +38,6 @@ public class Inventory {
         return null;
     }
 
-    // TODO: see if can call getProduct here
     public void removeProduct(int productID) {
         // Remove a product from the inventory by its ID
         // If the product is not found, print an error message
