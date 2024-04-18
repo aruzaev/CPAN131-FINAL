@@ -27,29 +27,27 @@ public class UserInventory {
         return null;
     }
 
-    public void removeUser(String username) {
-        if (users.size() > 1) {
-            for (int i = 0; i < users.size(); i++) {
-                if (users.get(i).getUsername().equals(username)) {
-                    if (i == 0) {
-                        System.out.println("Cannot delete the first user.");
-                        return;
-                    }
-                    users.remove(i);
-                    userCSV.saveUsersToCSV(users);
-                    return;
+    public boolean removeUser(String username) {
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            if (user.getUsername().equals(username)) {
+                if (i == 0) {
+                    System.out.println("Cannot delete the first user.");
+                    return false; // Cannot remove the first user
                 }
+                users.remove(i);
+                userCSV.saveUsersToCSV(users);
+                return true; // User successfully removed
             }
-        } else {
-            System.out.println("Cannot delete the only user.");
         }
         System.out.println("User not found.");
+        return false; // User not found or could not be removed
     }
 
 
     public void listUsers() {
-        for (int i = 1; i < users.size(); i++) {
-            System.out.println(users.get(i));
+        for (User user : users) {
+            System.out.println(user);
         }
     }
 
@@ -57,10 +55,11 @@ public class UserInventory {
         return users;
     }
 
-    public void updateUser(String username, String newPassword) {
+    public void updateUser(User updatedUser) {
         for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                user.setPassword(newPassword);
+            if (user.getUsername().equals(updatedUser.getUsername())) {
+                user.setPassword(updatedUser.getPassword());
+                user.setAdmin(updatedUser.isAdmin());
                 userCSV.saveUsersToCSV(users);
                 System.out.println("User updated successfully.");
                 return;

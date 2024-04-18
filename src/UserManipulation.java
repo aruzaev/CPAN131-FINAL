@@ -1,6 +1,6 @@
 public class UserManipulation implements Menu {
     private Inventory stock;
-    UserInventory userInventory = new UserInventory();
+    private UserInventory userInventory = new UserInventory();
 
     public UserManipulation(Inventory stock) {
         this.stock = stock;
@@ -38,23 +38,22 @@ public class UserManipulation implements Menu {
                 listUsers();
                 break;
             case 5:
-                return new MainMenu(stock); // go back to main menu
-
+                return new MainMenu(stock);
             case 6:
-                return new AdminMenu(stock); // go back to Admin Menu
+                return new AdminMenu(stock);
             case 0:
                 System.out.println("See you soon!");
                 System.exit(0);
             default:
                 System.out.println("Invalid choice, try again.");
         }
-        return this; // stay in the admin menu
+        return this;
     }
 
     private void addUser() {
         System.out.println("\n=======Add User=======");
         System.out.print("Enter Username: ");
-        String username = Utility.getUserInput();
+        String username = Utility.getUserInput().trim();
 
         if (CredentialsValidate.userExists(username)) {
             System.out.println("Username already exists. Please choose another.");
@@ -62,87 +61,72 @@ public class UserManipulation implements Menu {
         }
 
         System.out.print("Enter Password: ");
-        String password = Utility.getUserInput();
+        String password = Utility.getUserInput().trim();
 
-        if(!LoginValidation.isValidLogin(username, password)){
-            System.out.println("Make sure That there are no spaces in the credentials.");
+        if (!LoginValidation.isValidLogin(username, password)) {
+            System.out.println("Invalid input: Username and password must not contain spaces or special characters.");
             return;
         }
 
         System.out.print("Is Admin? (t/T - True | f/F - False): ");
-        String isAdmin = Utility.getUserInput();
-
-        if (!LoginValidation.isAdmin(isAdmin)){
-            System.out.println("Please make sure that \"Is Admin\" follows the proper input format");
+        String isAdminInput = Utility.getUserInput().trim();
+        boolean isAdmin = isAdminInput.equalsIgnoreCase("t");
+        if (!LoginValidation.isAdmin(isAdminInput)) {
+            System.out.println("Invalid input for admin status. Please use 't' or 'f'.");
             return;
-        }else{
-            if (isAdmin.equals("t") || isAdmin.equals("T")){
-                isAdmin = "true";
-            }else if (isAdmin.equals("f") || isAdmin.equals("F")){
-                isAdmin = "ok";
-            }
-
-            CredentialsValidate.createUser(username, password, Boolean.parseBoolean(isAdmin));
         }
+
+        // All checks passed, add the user
+        User newUser = new User(username, password, isAdmin);
+        userInventory.addUser(newUser);
         System.out.println("User added successfully!");
     }
-
 
     private void removeUser() {
         System.out.println("\n=======Remove User=======");
         listUsers();
         System.out.print("Enter Username to remove: ");
-        String username = Utility.getUserInput();
+        String username = Utility.getUserInput().trim();
 
-        UserInventory userInventory = new UserInventory();
-        userInventory.removeUser(username);
+        if (userInventory.removeUser(username)) {
+            System.out.println("User removed successfully!");
+        } else {
+            System.out.println("Failed to remove user or user not found.");
+        }
     }
 
     private void updateUser() {
         System.out.println("\n=======Update User=======");
         listUsers();
         System.out.print("Enter Username to update: ");
-        String username = Utility.getUserInput();
+        String username = Utility.getUserInput().trim();
 
-        UserInventory userInventory = new UserInventory();
         User user = userInventory.getUser(username);
-
         if (user == null) {
             System.out.println("User not found.");
             return;
         }
 
         System.out.print("Enter New Password (Press Enter to keep current): ");
-        String newPassword = Utility.getUserInput();
-
-        if (newPassword.isEmpty()) {
-            newPassword = user.getPassword();
-        } else if (!LoginValidation.isValidLogin(username, newPassword)) {
-            System.out.println("Make sure that there are no spaces in the credentials.");
+        String newPassword = Utility.getUserInput().trim();
+        if (!newPassword.isEmpty() && !LoginValidation.isValidLogin(username, newPassword)) {
+            System.out.println("Invalid new password: Must not contain spaces or special characters.");
             return;
         }
 
         System.out.print("Is Admin? (t/T - True | f/F - False, Press Enter to keep current): ");
-        String isAdminInput = Utility.getUserInput();
+        String isAdminInput = Utility.getUserInput().trim();
+        boolean isAdmin = isAdminInput.isEmpty() ? user.isAdmin() : isAdminInput.equalsIgnoreCase("t");
 
-        boolean isAdmin = user.isAdmin();
-        if (!isAdminInput.isEmpty()) {
-            if (!LoginValidation.isAdmin(isAdminInput)){
-                System.out.println("Please make sure that \"Is Admin\" follows the proper input format");
-                return;
-            }
-            isAdmin = Boolean.parseBoolean(isAdminInput);
-        }
-
-        userInventory.removeUser(username);
-        user.setPassword(newPassword);
+        // Update user details
+        user.setPassword(newPassword.isEmpty() ? user.getPassword() : newPassword);
         user.setAdmin(isAdmin);
-        userInventory.addUser(user);
+        userInventory.updateUser(user);
         System.out.println("User updated successfully!");
     }
 
-
     private void listUsers() {
+        System.out.println("\nList of Users:");
         userInventory.listUsers();
     }
 }
