@@ -120,7 +120,6 @@ public class AdminMenu implements Menu{
         System.out.println("Enter the new description (Press enter to keep current)");
         String newDescription = Utility.getUserInput();
 
-        // TODO: make the current check better?
         System.out.println("Enter the new price (negative to keep current)");
         double newPrice = Utility.getUserDouble();
 

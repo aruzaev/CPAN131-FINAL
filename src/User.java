@@ -9,6 +9,7 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
+    // getters and setters
     public String getUsername() {
         return username;
     }
@@ -32,7 +33,7 @@ public class User {
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
-
+    // compositiong printing
     public String toCSV() {
         return username + "," + password + "," + isAdmin;
     }

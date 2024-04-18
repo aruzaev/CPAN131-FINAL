@@ -1,15 +1,18 @@
 public class CustomerMenu implements Menu {
-    private Inventory stock;
-    private Cart cart;
-    private LogInManager customer;
+    private Inventory stock; // Holds reference to the inventory
+    private Cart cart; // Shopping cart for customer
+    private LogInManager customer; // Manages the login state
 
+    // Constructor initializes the menu, stock, and cart
     public CustomerMenu(Inventory stock) {
         this.stock = stock;
         this.cart = new Cart();
         this.customer = customer;
+        // Greeting message with the logged-in username
         System.out.println("\nWelcome, "+ Utility.ANSI_GREEN + Utility.username + Utility.ANSI_RESET);
     }
 
+    // Display options available for the customer
     @Override
     public void displayMenu() {
         System.out.println("\nCustomer menu");
@@ -21,6 +24,7 @@ public class CustomerMenu implements Menu {
         System.out.println("0. Back to main menu");
     }
 
+    // Handle user input from the customer menu
     @Override
     public Menu handleUserInput() {
         System.out.println("Enter choice: ");
@@ -46,11 +50,13 @@ public class CustomerMenu implements Menu {
         return this;
     }
 
+    // Displays all products and allows adding to cart
     private void viewAllProducts() {
         stock.listProducts();
         addToCart();
     }
 
+    // Allows customer to view products by specified categories
     private void viewProductsByCategory(){
         System.out.println("\nSelect Category");
         System.out.println("==============");
@@ -80,6 +86,7 @@ public class CustomerMenu implements Menu {
         addToCart();
     }
 
+    // Helper method to add products to the shopping cart
     private void addToCart() {
         System.out.println("Enter the product ID to add to cart (0 to cancel): ");
         int productId = Utility.getUserChoice();
@@ -96,10 +103,12 @@ public class CustomerMenu implements Menu {
         }
     }
 
+    // Display the contents of the cart
     private void viewCart() {
         cart.displayCart();
     }
 
+    // Handles the checkout process including inventory updates and payment
     private void checkout() {
         if (cart.getItems().isEmpty()) {
             System.out.println("Your cart is empty.");
@@ -109,7 +118,7 @@ public class CustomerMenu implements Menu {
         System.out.println("Proceeding to checkout...");
         boolean isStockUpdated = true; // flag to see if the stock has been impacted
 
-        for (CartItem item: cart.getItems()) {
+        for (CartItem item : cart.getItems()) {
             Product product = item.getProduct();
             int quantity = item.getQuantity();
 
@@ -128,7 +137,6 @@ public class CustomerMenu implements Menu {
 
             cart.clearCart();
             System.out.println("Checkout successful. Thank you for your purchase!");
-
         } else {
             System.out.println("Checkout failed due to stock issues. Please review your cart.");
         }
